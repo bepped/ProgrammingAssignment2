@@ -42,12 +42,39 @@ makeCacheMatrix <- function(x = matrix()) {
         }
         x_1 <<- NULL
     }
+    
     setcol <- function(c = NULL, j = NULL) {
-        setline(c, j, row = FALSE)
+        setline(c, j, FALSE)
     }
     
     setrow <- function(r = NULL, i = NULL) {
         setline(r, i)
+    }
+    
+    getline <- function(i = NULL, row = TRUE) {
+        if(is.null(i)) 
+            return(message("index can not be null"))
+        r <- NULL    
+        if(row){
+            if(i > nrow(x))
+                return (message("index out of bounds"))
+            r <- x[i,]
+        }
+        else {
+            if(i > ncol(x))
+                return (message("index out of bounds"))
+                
+            r <- x[, i]
+        }
+        r
+    }
+    
+    getcol <- function(i = NULL) {
+        getline(i, FALSE)
+    }
+    
+    getrow <- function(i = NULL) {
+        getline(i)
     }
     
     get <- function() x
@@ -59,7 +86,10 @@ makeCacheMatrix <- function(x = matrix()) {
         getsolve = getsolve,
         setcol = setcol, 
         setrow = setrow,
-        setline = setline)
+        setline = setline,
+        getline = getline,
+        getcol = getcol,
+        getrow = getrow)
 }
 
 
