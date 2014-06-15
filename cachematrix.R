@@ -13,11 +13,14 @@ makeCacheMatrix <- function(x = matrix()) {
         x_1 <<- NULL
     }
     
-    set_ij <- function(value, i, j){
+    set_vij <- function(v = NULL, i = NULL, j = NULL){
+        if(is.null(v) | is.null(i) | is.null(j) ) {
+            return(message("no argument can be null") )
+        }
         if(i > nrow(x) | j > ncol(x)) {
             return(message("i or j out of bounds"))
         }
-        x[i, j] <<- value
+        x[i, j] <<- v
         x_1 <<- NULL
     }
     
@@ -25,7 +28,7 @@ makeCacheMatrix <- function(x = matrix()) {
     setsolve <- function(x1) x_1 <<- x1
     getsolve <- function() x_1
     
-    list(set = set, get = get, set_ij = set_ij,
+    list(set = set, get = get, set_vij = set_vij,
         setsolve = setsolve, 
         getsolve = getsolve)
 }
