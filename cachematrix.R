@@ -84,6 +84,10 @@ makeCacheMatrix <- function(x = matrix()) {
         getline(i)
     }
     
+    setsubmatrix <- function(m = NULL, i = NULL, j = NULL){
+        #to be defined
+    }
+    
     get <- function() x
     setsolve <- function(x1) x_1 <<- x1
     getsolve <- function() x_1
