@@ -12,7 +12,8 @@ makeCacheMatrix <- function(x = matrix()) {
         x <<- y
         x_1 <<- NULL
     }
-    
+ 
+    # set a value in position (i, j) of the matrix
     set_vij <- function(v = NULL, i = NULL, j = NULL){
         if(is.null(v) | is.null(i) | is.null(j) ) {
             return(message("no argument can be null") )
@@ -24,6 +25,7 @@ makeCacheMatrix <- function(x = matrix()) {
         x_1 <<- NULL
     }
 
+    # set all values of a row (default) or a column of the matrix
     setline <- function(lin = NULL, k = NULL, row = TRUE) {
         if(is.null(lin) | is.null(k) ) {
             return(message("no argument can be null"))
@@ -43,14 +45,17 @@ makeCacheMatrix <- function(x = matrix()) {
         x_1 <<- NULL
     }
     
+    # set a column of the matrix
     setcol <- function(c = NULL, j = NULL) {
         setline(c, j, FALSE)
     }
     
+    #set a row of the matrix
     setrow <- function(r = NULL, i = NULL) {
         setline(r, i)
     }
     
+    # get a row (default) or a column of the matrix
     getline <- function(i = NULL, row = TRUE) {
         if(is.null(i)) 
             return(message("index can not be null"))
@@ -69,10 +74,12 @@ makeCacheMatrix <- function(x = matrix()) {
         r
     }
     
+    #get a column of the matrix
     getcol <- function(i = NULL) {
         getline(i, FALSE)
     }
     
+    #get a row of the matrix
     getrow <- function(i = NULL) {
         getline(i)
     }
@@ -91,7 +98,6 @@ makeCacheMatrix <- function(x = matrix()) {
         getcol = getcol,
         getrow = getrow)
 }
-
 
 ## cacheSolve returns the cached inverse for the matrix x 
 ## if x$getsolve() is not null otherwise 
