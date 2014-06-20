@@ -84,14 +84,34 @@ makeCacheMatrix <- function(x = matrix()) {
         getline(i)
     }
     
-    setsubmatrix <- function(m = NULL, i = NULL, j = NULL){
-        #to be defined
+    okchecks_ <- function(i, j, len){
+        if(is.null(i)| is.null(j) | is.null(len) )
+            return list(code = FALSE, msg = "no argument can be null") 
+        
+        nr <- nrow(x)
+        nc <- ncol(x)
+        if(i + len > nr | j + len > nc | len < 0)
+            return list(code = FALSE, msg= "some indexes are out of bounds")
+                
+        return list(code = TRUE, msg = "")
+    }
+
+    setsubmatrix <- function(i = NULL, j = NULL, sm = NULL){
+        len <- nrow(sm)
+        r <- okchecks_(i, j, len)
+        if(!r$code) return message(r$msg)
+        
+        x[i:len, j:len] <<- sm 
+        x_1 <<- NULL
     }
     
-    getsubmatrix <- function(i = NULL, j = NULL) {
-        #to be defined
+    getsubmatrix <- function(i = NULL, j = NULL, len) {
+        r <- okchecks_(i, j, len)
+        if(!r$code) return message(r$msg)
+        
+        return x[i:len, j:len]
     }
-    
+        
     get <- function() x
     setsolve <- function(x1) x_1 <<- x1
     getsolve <- function() x_1
@@ -104,7 +124,9 @@ makeCacheMatrix <- function(x = matrix()) {
         setline = setline,
         getline = getline,
         getcol = getcol,
-        getrow = getrow)
+        getrow = getrow,
+        getsubmatrix = getsubmatrix,
+        setsubmatrix = setsubmatrix)
 }
 
 ## cacheSolve returns the cached inverse for the matrix x 
