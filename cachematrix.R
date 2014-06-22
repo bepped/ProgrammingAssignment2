@@ -86,30 +86,32 @@ makeCacheMatrix <- function(x = matrix()) {
     
     okchecks_ <- function(i, j, len){
         if(is.null(i)| is.null(j) | is.null(len) )
-            return list(code = FALSE, msg = "no argument can be null") 
+            return(list(code = FALSE, msg = "no argument can be null"))
         
         nr <- nrow(x)
         nc <- ncol(x)
         if(i + len > nr | j + len > nc | len < 0)
-            return list(code = FALSE, msg= "some indexes are out of bounds")
+            return(list(code = FALSE, msg= "some indexes are out of bounds"))
                 
-        return list(code = TRUE, msg = "")
+        return(list(code = TRUE, msg = ""))
     }
 
     setsubmatrix <- function(i = NULL, j = NULL, sm = NULL){
+        if(!is.matrix(sm) )
+            return(message("the third argument must be a matrix"))
         len <- nrow(sm)
         r <- okchecks_(i, j, len)
-        if(!r$code) return message(r$msg)
+        if(!r$code) return(message(r$msg))
         
-        x[i:len, j:len] <<- sm 
+        x[i:(i + len - 1), j:(j + len - 1)] <<- sm 
         x_1 <<- NULL
     }
     
-    getsubmatrix <- function(i = NULL, j = NULL, len) {
-        r <- okchecks_(i, j, len)
-        if(!r$code) return message(r$msg)
+    getsubmatrix <- function(i = NULL, j = NULL, ln = NULL) {
+        r <- okchecks_(i, j, ln)
+        if(!r$code) return(message(r$msg))
         
-        return x[i:len, j:len]
+        x[i:(i + ln - 1), j:(j + ln - 1)]
     }
         
     get <- function() x
